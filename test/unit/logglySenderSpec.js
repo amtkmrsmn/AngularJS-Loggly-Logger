@@ -65,7 +65,7 @@ describe('logglyLogger Module:', function() {
 
   describe( 'LogglyLogger', function() {
 
-    var service, $log, message = "A test message";
+    var service, $log;
 
 
     beforeEach(function () {
@@ -86,18 +86,18 @@ describe('logglyLogger Module:', function() {
       
       var httpUrl = 'https://logs-01.loggly.com/inputs/test123456/tag/logglyLogger/';
       var token = 'test123456' ,userTag = 'logglyLogger';
-      
+      var message = { message: 'A test message' };
       var promise, expected, actual;
       
       expected = /* Whatever is sent back */
-      $httpBackend.whenPOST(httpUrl, message)
+      $httpBackend.whenPOST(httpUrl, "A test message")
           .respond(expected);
 
       // act
       logglyLoggerProvider.inputToken(token);
       logglyLoggerProvider.inputTag(userTag);
       
-      promise = service.sendMessage("A test message");
+      promise = service.sendMessage(message);
       promise.then(function(response) {
           actual = response.data;
       });
