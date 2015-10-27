@@ -1,9 +1,7 @@
 'use strict';
 
 /* jasmine specs for services go here */
-
 var $httpBackend;
-
 describe('logglyLogger Module:', function() {
   var logglyLoggerProvider,
       moduleTest = this,
@@ -25,10 +23,51 @@ describe('logglyLogger Module:', function() {
     inject(function() {});
   });
 
+
+  describe( 'LogglyLoggerProvider', function() {
+
+    it( 'can have a logging level configured', function() {
+
+        for( var i in levels ) {
+            logglyLoggerProvider.level( levels[i] );
+            expect( logglyLoggerProvider.level() ).toEqual( levels[i] );
+        }
+    });
+
+
+    it( 'will throw an exception if an invalid level is supplied', function() {
+
+        expect( function() { logglyLoggerProvider.level('TEST') } ).toThrow();
+    });
+
+    it( 'can determine if a given level is enabled', function() {
+        for( var a in levels ) {
+
+            logglyLoggerProvider.level( levels[a] );
+
+            for( var b in levels ) {
+                expect( logglyLoggerProvider.isLevelEnabled( levels[b] )).toBe( b >= a );
+            }
+        }
+    });
+
+    it( 'can specify extra fields to be sent with each log message', function() {
+
+      var extra = { "test": "extra" };
+
+      logglyLoggerProvider.fields( extra );
+
+      expect( logglyLoggerProvider.fields()).toEqual( extra );
+
+    });
+
+  });
+
   describe( 'LogglyLogger', function() {
 
     var service, $log, message = "A test message";
-    
+
+
     beforeEach(function () {
       inject(function ($injector) {
         service = $injector.get('LogglyLogger');
@@ -42,7 +81,7 @@ describe('logglyLogger Module:', function() {
       $httpBackend.verifyNoOutstandingExpectation();
       $httpBackend.verifyNoOutstandingRequest();
     });
-
+    
     it('should send a message object to the API', function() {
       
       var httpUrl = 'https://logs-01.loggly.com/inputs/test123456/tag/logglyLogger/';
@@ -68,5 +107,7 @@ describe('logglyLogger Module:', function() {
       // assert
       expect(actual).toEqual(expected);
     });
+    
   });
+
 });
