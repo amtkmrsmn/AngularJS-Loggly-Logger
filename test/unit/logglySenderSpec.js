@@ -90,7 +90,7 @@ describe('logglyLogger Module:', function() {
       var promise, expected, actual;
       
       expected = /* Whatever is sent back */
-      $httpBackend.whenPOST(httpUrl, "A test message")
+      $httpBackend.whenPOST(httpUrl, message)
           .respond(expected);
 
       // act
