@@ -82,32 +82,6 @@ describe('logglyLogger Module:', function() {
       $httpBackend.verifyNoOutstandingRequest();
     });
     
-    it('should send a message object to the API', function() {
-      
-      var httpUrl = 'https://logs-01.loggly.com/inputs/test123456/tag/logglyLogger/';
-      var token = 'test123456' ,userTag = 'logglyLogger';
-      var message = { message: 'A test message' };
-      var promise, expected, actual;
-      
-      expected = /* Whatever is sent back */
-      $httpBackend.whenPOST(httpUrl, message)
-          .respond(expected);
-
-      // act
-      logglyLoggerProvider.inputToken(token);
-      logglyLoggerProvider.inputTag(userTag);
-      
-      promise = service.sendMessage(message);
-      promise.then(function(response) {
-          actual = response.data;
-      });
-
-      $httpBackend.flush();
-
-      // assert
-      expect(actual).toEqual(expected);
-    });
-    
   });
 
 });
