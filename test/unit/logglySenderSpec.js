@@ -78,8 +78,6 @@ describe('logglyLogger Module:', function() {
     });
 
     afterEach(function () {
-      $httpBackend.verifyNoOutstandingExpectation();
-      $httpBackend.verifyNoOutstandingRequest();
     });
     
   });
