@@ -1,7 +1,7 @@
 'use strict';
 
 /* jasmine specs for services go here */
-var $httpBackend;
+
 describe('logglyLogger Module:', function() {
   var logglyLoggerProvider,
       moduleTest = this,
@@ -67,19 +67,20 @@ describe('logglyLogger Module:', function() {
 
     var service, $log;
 
-
     beforeEach(function () {
       inject(function ($injector) {
         service = $injector.get('LogglyLogger');
         service.attach();
-        $httpBackend = $injector.get('$httpBackend');
+
         $log = $injector.get('$log');
       });
+      
     });
 
     afterEach(function () {
+      
     });
-    
+
   });
 
 });
